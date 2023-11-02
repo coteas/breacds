@@ -37,8 +37,12 @@ app.get('*', (req, res) => {
 })
 
 //Mongo-Mongoose Connection
-mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true})
+mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
 
+  mongoose.set('strictQuery', true);
 //Listen
 app.listen(PORT, () => {
     console.log("listening on port", PORT)
