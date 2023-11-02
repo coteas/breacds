@@ -1,15 +1,15 @@
-// DEPENDENCIES
+//Dependencies
 const express = require('express')
 const methodOverride = require('method-override')
 const mongoose = require('mongoose')
 
-
-// CONFIGURATION
+// Configuaration
 require('dotenv').config()
 const PORT = process.env.PORT
+console.log(PORT)
 const app = express()
 
-// MIDDLEWARE
+// Middleware
 app.set('views', __dirname + '/views')
 app.set('view engine', 'jsx')
 app.engine('jsx', require('express-react-views').createEngine())
@@ -18,28 +18,28 @@ app.use(express.urlencoded({extended: true}))
 app.use(methodOverride('_method'))
 
 
-
-// ROUTES
+//Routes
 app.get('/', (req, res) => {
-    res.send('Welcome to an Awesome App about Breads')
-  })
-  
+    res.send("hello world")
+})
+
 // Breads
-  const breadsController = require('./controllers/breads_controller.js')
-  app.use('/breads', breadsController)
+const breadsController = require('./controllers/breads_controller.js')
+app.use('/breads', breadsController)
+
+// Bakers 
+const bakersController = require('./controllers/baker_controllers.js')
+app.use('/bakers', bakersController)
 
 // 404 Page
 app.get('*', (req, res) => {
     res.send('error404')
-  })  
+})
 
-  //mongoose connection
-  mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    })
+//Mongo-Mongoose Connection
+mongoose.connect(process.env.MONGO_URI, {useNewUrlParser: true, useUnifiedTopology: true})
 
-// LISTEN
+//Listen
 app.listen(PORT, () => {
-  console.log('listening on port', PORT);
+    console.log("listening on port", PORT)
 })
